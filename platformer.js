@@ -27,33 +27,39 @@ var scoreText;
 
 
 function preload(){
-	this.load.image('background','assets/Brown.png');
-	this.load.image('platform', 'assets/platform.png');
-	this.load.image('collect', 'assets/radis.png',{frameWidth: 80, frameHeight: 30});
-	this.load.image('perso', 'assets/perso.png');
+	this.load.image('background','assets/Blue.png',);
+	this.load.image('platforms', 'assets/platforms.png');
+	this.load.spritesheet('radis', 'assets/radis.png',{frameWidth: 30, frameHeight:38});
+	this.load.spritesheet('perso', 'assets/perso.png',{frameWidth: 32, frameHeight:32});
+	this.load.spritesheet('fatBird', 'assets/fatBird.png',{frameWidth: 30, frameHeight:30});
+	this.load.image('sol','assets/sol.png',);
 }
 
 
 
 function create(){
-	this.add.image(400,300,'background',{frameWidth: 80, frameHeight: 30});
-	this.add.image(400,100,'platform');
-	this.add.image(400,500,'collect');
-	this.add.image(400,400,'perso');
+	this.add.image(400,300,'background').setScale(20);
 
-/*	platforms = this.physics.add.staticGroup();
-	platforms.create(400,568,'sol').setScale(2).refreshBody();
-	platforms.create(600,400,'sol');
-	platforms.create(50,250,'sol');
 	
+// Platforme placement et interactions
+	platforms = this.physics.add.staticGroup();
+	platforms.create(400,600,'sol').refreshBody();
+	platforms.create(50,250,'platforms');
+	platforms.create(500,250,'platforms');
+	platforms.create(600,500,'platforms');
+	platforms.create(200,350,'platforms');
+
+//perso	
 	player = this.physics.add.sprite(100,450,'perso');
 	player.setCollideWorldBounds(true);
 	player.setBounce(0.2);
 	player.body.setGravityY(000);
 	this.physics.add.collider(player,platforms);
-	
-	cursors = this.input.keyboard.createCursorKeys(); */
-	/*
+
+
+	cursors = this.input.keyboard.createCursorKeys();
+
+//animation perso	
 	this.anims.create({
 		key:'left',
 		frames: this.anims.generateFrameNumbers('perso', {start: 0, end: 3}),
@@ -66,26 +72,29 @@ function create(){
 		frames: [{key: 'perso', frame:4}],
 		frameRate: 20
 	});
-	
-	/*
-	stars = this.physics.add.group({
-		key: 'etoile',
+
+//radis	
+		radis = this.physics.add.group({
+		key: 'radis',
 		repeat:11,
 		setXY: {x:12,y:0,stepX:70}
 	});
 	
-	this.physics.add.collider(stars,platforms);
-	this.physics.add.overlap(player,stars,collectStar,null,this);
+	this.physics.add.collider(radis,platforms);
+	this.physics.add.overlap(player,radis,collectRadis,null,this);
+
+//affichage score
 
 	scoreText = this.add.text(16,16, 'score: 0', {fontSize: '32px', fill:'#000'});
-	bombs = this.physics.add.group();
-	this.physics.add.collider(bombs,platforms);
-	this.physics.add.collider(player,bombs, hitBomb, null, this);*/
+	fatBirds = this.physics.add.group();
+	this.physics.add.collider(fatBirds,platforms);
+	this.physics.add.collider(player,fatBirds, hitfatBirds, null, this);
 }
 
 
+//deplacement 
 
-function update(){/*
+function update(){
 	if(cursors.left.isDown){
 		player.anims.play('left', true);
 		player.setVelocityX(-300);
@@ -104,28 +113,34 @@ function update(){/*
 	} 
 	
 }
-function hitBomb(player, bomb){
+
+// monstre
+function hitfatBirds(player, fatBird){
 	this.physics.pause();
 	player.setTint(0xff0000);
 	player.anims.play('turn');
 	gameOver=true;
 }
 
-function collectStar(player, star){
-	star.disableBody(true,true);
+
+// collecte radis
+
+function collectRadis(player, radi){
+	radi.disableBody(true,true);
 	score += 10;
 	scoreText.setText('score: '+score);
-	if(stars.countActive(true)===0){
-		stars.children.iterate(function(child){
+	if(radis.countActive(true)===0){
+		radis.children.iterate(function(child){
 			child.enableBody(true,child.x,0, true, true);
 		});
 		
 		var x = (player.x < 400) ? 
 			Phaser.Math.Between(400,800):
 			Phaser.Math.Between(0,400);
-		var bomb = bombs.create(x, 16, 'bomb');
-		bomb.setBounce(1);
-		bomb.setCollideWorldBounds(true);
-		bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-	}*/
+
+		var fatBirds = fatBirds.create(x, 16, 'fatBird');
+		fatBirds.setBounce(1);
+		fatBirds.setCollideWorldBounds(true);
+		fatBirds.setVelocity(Phaser.Math.Between(-200, 200), 20);
+	}
 }
