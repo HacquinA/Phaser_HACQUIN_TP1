@@ -31,7 +31,7 @@ function preload(){
 	this.load.image('platforms', 'assets/platforms.png');
 	this.load.spritesheet('radis', 'assets/radis.png',{frameWidth: 30, frameHeight:38});
 	this.load.spritesheet('perso', 'assets/perso.png',{frameWidth: 32, frameHeight:32});
-	this.load.spritesheet('fatBird', 'assets/fatBird.png',{frameWidth: 30, frameHeight:30});
+	this.load.spritesheet('fatBird', 'assets/fatBird.png',{frameWidth: 37, frameHeight:45});
 	this.load.image('sol','assets/sol.png',);
 }
 
