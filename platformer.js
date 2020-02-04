@@ -88,7 +88,7 @@ function create(){
 	scoreText = this.add.text(16,16, 'score: 0', {fontSize: '32px', fill:'#000'});
 	fatBirds = this.physics.add.group();
 	this.physics.add.collider(fatBirds,platforms);
-	this.physics.add.collider(player,fatBirds, hitfatBirds, null, this);
+	this.physics.add.collider(player,fatBirds, hitfatBird, null, this);
 }
 
 
@@ -115,7 +115,7 @@ function update(){
 }
 
 // monstre
-function hitfatBirds(player, fatBird){
+function hitfatBird(player, fatBird){
 	this.physics.pause();
 	player.setTint(0xff0000);
 	player.anims.play('turn');
@@ -138,9 +138,9 @@ function collectRadis(player, radi){
 			Phaser.Math.Between(400,800):
 			Phaser.Math.Between(0,400);
 
-		var fatBirds = fatBirds.create(x, 16, 'fatBird');
-		fatBirds.setBounce(1);
-		fatBirds.setCollideWorldBounds(true);
-		fatBirds.setVelocity(Phaser.Math.Between(-200, 200), 20);
+		var fatBird = fatBirds.create(x, 16, 'fatBird');
+		fatBird.setBounce(1);
+		fatBird.setCollideWorldBounds(true);
+		fatBird.setVelocity(Phaser.Math.Between(-200, 200), 20);
 	}
 }
